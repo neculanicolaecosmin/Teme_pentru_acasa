@@ -220,14 +220,14 @@ class RAGAssistant:
         return [chunks[i] for i in indices[0] if i < len(chunks)]
 
     def calculate_similarity(self, text: str) -> float:
-        # ToDo: Ajustati aceasta propozitie de referinta pentru a se potrivi mai bine cu domeniul dvs, astfel incat sa reflecte mai precis ce inseamna "relevant" in contextul aplicatiei dvs.
-        """Returneaza similaritatea cu o propozitie de referinta despre ... ."""
+        # Am implementat cerinta: se coreleaza textul cu propozitia de referinta de yoga.
+        """Returneaza similaritatea intre textul de intrare si propozitia de referinta despre yoga."""
         embedding = self._embed_texts(text.strip())[0]
         return self._cosine_similarity(embedding, self.relevance)
 
     def is_relevant(self, user_input: str) -> bool:
         # ToDo: Ajustati pragul de similaritate pentru a se potrivi mai bine cu domeniul dvs, astfel incat sa echilibreze corect intre a permite intrebari relevante si a respinge cele irelevante.
-        """Verifica daca intrarea utilizatorului e despre ...."""
+        """Verifica daca intrarea utilizatorului e despre yoga."""
         return self.calculate_similarity(user_input) >= 0.5
 
     def assistant_response(self, user_message: str) -> str:
