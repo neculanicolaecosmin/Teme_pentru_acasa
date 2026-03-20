@@ -40,14 +40,17 @@ class RAGAssistant:
         os.makedirs(DATA_DIR, exist_ok=True)
         self.embedder = None
 
-        # ToDo: Adaugat o propozitie de referinta mai specifica pentru domeniul dvs
+        # Propozitie de referinta pentru detectia de relevanta in domeniul yoga.
         self.relevance = self._embed_texts(
-            "Aceasta este o intrebare relevanta despre ...",
+            "Aceasta este o intrebare relevanta despre yoga, posturi (asane), respiratie, flexibilitate, forta si meditatie.",
         )[0]
 
-        # ToDo: Definiti un prompt de sistem mai detaliat pentru a ghida raspunsurile LLM-ului in directia dorita
+        # Prompt de sistem pentru a ghida LLM-ul sa se comporte ca un coach yoga dedicat.
         self.system_prompt = (
-            "..."
+            "Ești un asistent virtual de yoga in limba română, prietenos, calm și empatic. "
+            "Oferă răspunsuri clare, sigure și adaptate nivelului utilizatorului (începător, intermediar, avansat). "
+            "Include recomandări corecte de respirație, aliniere posturală și siguranță. "
+            "Dacă subiectul nu este despre yoga, explică politicos că poți ajuta cel mai bine cu întrebări legate de yoga, meditație, mindfulness și wellness."
         )
 
 
@@ -88,13 +91,15 @@ class RAGAssistant:
 
         system_msg = self.system_prompt
 
-        # ToDo: Ajustati acest prompt pentru a se potrivi mai bine cu domeniul dvs si pentru a ghida LLM-ul sa ofere raspunsuri mai relevante si structurate.
+        # Promptul user include întrebarea și contextul relevant preluat din indexul FAISS.
         messages = [
             {"role": "system", "content": system_msg},
             {
                 "role": "user",
                 "content": (
-                    "..."
+                    f"Ai următorul context informativ despre yoga:\n{context}\n\n" 
+                    f"Răspunde la întrebarea de mai jos într-un mod prietenos și structurat:\n{user_input}\n\n" 
+                    "Dacă nu ai suficiente informații din context, oferă sfaturi generale de practică sigură a yoga și recomandă ajustări de bază."
                 ),
             },
         ]
@@ -228,13 +233,13 @@ class RAGAssistant:
     def assistant_response(self, user_message: str) -> str:
         """Directioneaza mesajul utilizatorului catre calea potrivita."""
         if not user_message:
-            # ToDo: Ajustati acest mesaj pentru a fi mai specific pentru domeniul dvs, astfel incat sa ghideze utilizatorii sa puna intrebari relevante si sa ofere un exemplu concret.
-            return "Te rog scrie un mesaj despre ... ."
+            return (
+                "Te rog scrie o întrebare concretă despre yoga, de exemplu: 'Cum pot îmbunătăți alinierea în Adho Mukha Svanasana?'"
+            )
 
         if not self.is_relevant(user_message):
-            # ToDo: Ajustati acest mesaj pentru a fi mai specific pentru domeniul dvs, astfel incat sa ghideze utilizatorii sa puna intrebari relevante si sa ofere un exemplu concret.
             return (
-                "..."
+                "Întrebarea ta nu pare a fi despre yoga. Te pot ajuta cel mai bine cu teme ca: posturi, tehnici de respirație, rutine zilnice de flexibilitate sau meditație."
             )
 
         chunks = self._load_documents_from_web()
@@ -244,6 +249,5 @@ class RAGAssistant:
 
 if __name__ == "__main__":
     assistant = RAGAssistant()
-    # ToDo: Testati cu intrebari relevante pentru domeniul dvs, precum si cu intrebari irelevante pentru a va asigura ca logica de filtrare functioneaza corect.
-    print(assistant.assistant_response("..."))  # test relevant
-    print(assistant.assistant_response("..."))  # test irelevant
+    print(assistant.assistant_response("Care sunt principalele beneficii ale practicii de yoga pentru reducerea stresului?"))
+    print(assistant.assistant_response("Ce faci astăzi?"))  # test irelevant
