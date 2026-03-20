@@ -23,3 +23,4 @@ python src/tema_2_services/service.py
 5. Pentru a rula metricile din evaluate rulați:
 în primul terminal: uvicorn app.main:app --reload
 și în al doilea terminal: python -m tema_3_evaluation.evaluate
+Done
