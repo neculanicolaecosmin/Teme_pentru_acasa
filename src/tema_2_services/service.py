@@ -4,14 +4,19 @@ import hashlib
 
 from dotenv import load_dotenv
 import numpy as np
-import tensorflow_hub as hub
+try:
+    import tensorflow_hub as hub
+except ImportError as e:
+    hub = None
+    tensorflow_hub_import_error = e
 import tensorflow as tf
 from langchain_community.document_loaders import WebBaseLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from openai import OpenAI
 import faiss
 
-load_dotenv()
+# Forțează .env sa suprascrie orice variabilă deja setată cu valoare goală
+load_dotenv(override=True)
 
 DATA_DIR = os.environ.get("DATA_DIR", "/app/data")
 CHUNKS_JSON_PATH = os.path.join(DATA_DIR, "data_chunks.json")
@@ -31,11 +36,11 @@ class RAGAssistant:
         """Initializeaza clientul LLM, embedderul si prompturile."""
         self.groq_api_key = os.environ.get("GROQ_API_KEY")
         if not self.groq_api_key:
-            raise ValueError("Seteaza GROQ_API_KEY in variabilele de mediu.")
-
-        self.client = OpenAI(
-            api_key=self.groq_api_key,
-            base_url=os.environ.get("GROQ_BASE_URL"))
+            self.client = None
+        else:
+            self.client = OpenAI(
+                api_key=self.groq_api_key,
+                base_url=os.environ.get("GROQ_BASE_URL"))
 
         os.makedirs(DATA_DIR, exist_ok=True)
         self.embedder = None
@@ -105,6 +110,12 @@ class RAGAssistant:
         ]
 
         try:
+            if self.client is None:
+                return (
+                    "Asistent: GROQ_API_KEY nu este configurat. "
+                    "Setează variabila de mediu GROQ_API_KEY în .env."
+                )
+
             response = self.client.chat.completions.create(
                 messages=messages,
                 model="openai/gpt-oss-20b",
@@ -120,6 +131,10 @@ class RAGAssistant:
         """Genereaza embeddings folosind Universal Sentence Encoder."""
         if isinstance(texts, str):
             texts = [texts]
+        if hub is None:
+            raise ImportError(
+                "tensorflow_hub nu este instalat. Ruleaza: pip install tensorflow_hub"
+            )
         if self.embedder is None:
             self.embedder = hub.load(USE_MODEL_URL)
         if callable(self.embedder):

@@ -9,7 +9,11 @@ pip install -r .\requirements.txt
 
 2. Redenumiți fișierul .env.sample în .env și completați variabilele cu valorile dvs.
 
-3. Testare:
+3. Instalare extra dependențe necesare:
+python -m pip install --upgrade pip
+pip install tensorflow_hub
+
+4. Testare:
 python src/tema_2_services/service.py
 
 4. Pentru a rula testele din test_main rulați:

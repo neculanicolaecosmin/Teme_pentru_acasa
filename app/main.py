@@ -17,9 +17,11 @@ import asyncio
 from contextlib import asynccontextmanager
 from dotenv import load_dotenv
 
+# Încarcă variabilele de mediu imediat, înainte de orice instanțiere de servicii
+load_dotenv(override=True)
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):    
-    load_dotenv()
     yield
 
 app = FastAPI(lifespan=lifespan)
