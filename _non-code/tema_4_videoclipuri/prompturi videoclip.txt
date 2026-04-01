@@ -1,0 +1,48 @@
+Pentru generarea imaginii
+```json
+{
+  "prompt": "A highly realistic Japanese geisha walking gracefully through a traditional Japanese garden during spring. She is wearing an elegant, richly detailed kimono with intricate floral patterns, her hair styled in a traditional shimada hairstyle with delicate kanzashi ornaments. The garden features blooming cherry blossom trees (sakura), a small wooden bridge over a शांत koi pond, stone lanterns, and a winding path of stepping stones. Soft natural lighting, golden hour ambiance, subtle shadows, ultra-detailed textures, cinematic composition, shallow depth of field, 85mm lens, photorealistic, 8K resolution, lifelike skin texture, atmospheric perspective.",
+  "negative_prompt": "cartoon, anime, illustration, low quality, blurry, distorted face, unrealistic proportions, oversaturated colors, CGI, 3D render, noise, artifacts",
+  "style": "photorealistic",
+  "lighting": "soft natural light, golden hour",
+  "camera": {
+    "lens": "85mm",
+    "aperture": "f/1.8",
+    "depth_of_field": "shallow"
+  },
+  "composition": "cinematic, rule of thirds, leading lines from the garden path",
+  "resolution": "8K",
+  "aspect_ratio": "3:2"
+}
+```
+**********************************************************
+Pentru generarea secventei 1
+```json
+{
+  "subject": "A traditional Japanese geisha with a detailed floral kimono, white makeup, red lips, and ornate kanzashi hair ornaments",
+  "action": "walking forward gracefully along the stone path, mid-step with subtle motion blur in the kimono fabric and feet to convey movement, natural arm swing, gaze slightly downward",
+  "location": "a serene Japanese garden with blooming cherry blossom trees, a koi pond with visible fish, a small wooden bridge in the background, stone lanterns, and moss-covered ground",
+  "composition": "cinematic framing, rule of thirds positioning, leading lines from the stone path guiding the eye, shallow depth of field with background softly blurred, subject in sharp focus, slight foreground elements for depth",
+  "style": "ultra-realistic, photorealistic, 8K detail, soft golden hour lighting, natural skin texture, realistic shadows, subtle atmospheric depth, shot with 85mm lens, f/1.8 aperture, high dynamic range",
+  "audio": {
+    "type": "background_music",
+    "description": "traditional Japanese classical music with koto and shamisen, slow tempo, calming and elegant melody",
+    "mood": "peaceful, meditative, refined",
+    "tempo": "slow",
+    "instruments": ["koto", "shamisen", "shakuhachi flute"],
+    "ambience": "subtle nature sounds like flowing water and distant birds",
+    "volume": "soft, balanced with visuals"
+  }
+}
+
+**********************************************************
+Pentru generarea secventei 2
+```json
+{
+  "prompt": "Continuation of the scene: the same traditional Japanese geisha continues walking gracefully along the stone path in the serene garden. She gently reaches to her side and picks up a delicate white paper umbrella (wagasa), slowly opening it as she walks. The motion is smooth and elegant, with natural arm movement and subtle fabric flow. Cherry blossoms continue to fall softly around her, koi fish swim in the pond, and the wooden bridge remains in the background. The umbrella catches the warm golden hour light, creating soft shadows on her face. Cinematic continuity, consistent lighting and environment, ultra-realistic, shallow depth of field, 85mm lens, smooth motion, 8K detail.",
+  "style": "photorealistic",
+  "lighting": "warm golden hour, soft natural light",
+  "motion": "slow, graceful, cinematic movement",
+  "continuity": "same character, same outfit, same environment, seamless transition from previous scene",
+  "audio": "soft traditional Japanese music with koto, shamisen, and shakuhachi, calm and meditative"
+}
